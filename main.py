@@ -20,7 +20,7 @@ telebot.logger.setLevel(logging.DEBUG)
 
 def events_updater():
     """
-    ?XD wtf
+    Main logic of the program
     """
     while True:
         kinda_db_file = open('kindadb.txt', 'r+')
@@ -73,15 +73,16 @@ def send_welcome(message):
     Initial message handler
     :param message:
     """
-    last_date = datetime.datetime.now()
-    last_link = ''
-    bot.reply_to(message, "Howdy, how are you doing?")
-    kinda_db = open('kindadb.txt', 'r+')                # initial data
-    kinda_db.truncate(0)                                #
-    kinda_db.write(str(last_date) + '\n' + last_link)   #
-    kinda_db.close()                                    #
+    if str(message.from_user.id) == config.owner_id:
+        last_date = datetime.datetime.now()
+        last_link = ''
+        bot.reply_to(message, "Howdy, how are you doing?")
+        kinda_db = open('kindadb.txt', 'r+')                # initial data
+        kinda_db.truncate(0)                                #
+        kinda_db.write(str(last_date) + '\n' + last_link)   #
+        kinda_db.close()                                    #
 
-    background_worker(events_updater())                 # starting handler
+        background_worker(events_updater())                 # starting handler
 
 
 bot.polling()
