@@ -20,6 +20,7 @@ try:
     soup = BeautifulSoup(page, 'xml')
 except Exception as he:
     bot.send_message(config.owner_id, f'Something went wrong:\n\n{he}')
+    logger.error(he)
 
 
 def events_updater():
